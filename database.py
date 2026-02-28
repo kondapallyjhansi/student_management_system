@@ -7,7 +7,7 @@ def create_tables():
     conn = connect_db()
     cur = conn.cursor()
 
-    # Students Table (Student ID UNIQUE)
+    # Students Table
     cur.execute("""
         CREATE TABLE IF NOT EXISTS students(
             student_id TEXT PRIMARY KEY,
@@ -15,7 +15,7 @@ def create_tables():
         )
     """)
 
-    # Attendance Table (No duplicate per day)
+    # Attendance Table
     cur.execute("""
         CREATE TABLE IF NOT EXISTS attendance(
             student_id TEXT,
@@ -25,16 +25,13 @@ def create_tables():
         )
     """)
 
-    # Users Table
+    # Users Table (for login/register)
     cur.execute("""
         CREATE TABLE IF NOT EXISTS users(
             username TEXT PRIMARY KEY,
-            password TEXT
+            password TEXT NOT NULL
         )
     """)
-
-    # Default Admin
-    cur.execute("INSERT OR IGNORE INTO users VALUES('admin','admin123')")
 
     conn.commit()
     conn.close()
